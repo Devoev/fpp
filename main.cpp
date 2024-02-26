@@ -14,5 +14,7 @@ int main() {
     std::cout << "x-coords: " << msh.x().transpose() << std::endl;
     std::cout << "y-coords: " << msh.y().transpose() << std::endl;
 
+    auto msh2 = fem::mesh::TriangularMesh2D::parse("examples/unit_circle.msh");
+
     return 0;
 }

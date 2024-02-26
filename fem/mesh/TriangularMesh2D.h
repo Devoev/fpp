@@ -13,6 +13,12 @@ namespace fem::mesh {
     struct TriangularMesh2D {
 
         /**
+         * Constructs a 2D triangular mesh from the given msh_path.
+         * @param msh_path Path to the .msh file.
+         */
+        static TriangularMesh2D parse(const std::string& msh_path);
+
+        /**
          * Node coordinate matrix.
          */
         const Eigen::Matrix<double, Eigen::Dynamic, 2> nodes;
