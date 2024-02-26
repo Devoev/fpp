@@ -11,7 +11,8 @@ int main() {
 
     fem::mesh::TriangularMesh2D msh { nodes, elems_to_nodes };
 
-    std::cout << msh.elems_to_nodes << std::endl;
+    std::cout << "x-coords: " << msh.x().transpose() << std::endl;
+    std::cout << "y-coords: " << msh.y().transpose() << std::endl;
 
     return 0;
 }

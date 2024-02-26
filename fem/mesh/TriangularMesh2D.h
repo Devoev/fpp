@@ -15,12 +15,40 @@ namespace fem::mesh {
         /**
          * Node coordinate matrix.
          */
-        Eigen::Matrix<double, Eigen::Dynamic, 2> nodes;
+        const Eigen::Matrix<double, Eigen::Dynamic, 2> nodes;
 
         /**
          * Element to node connection matrix.
          */
-        Eigen::Matrix<int, Eigen::Dynamic, 3> elems_to_nodes;
+        const Eigen::Matrix<int, Eigen::Dynamic, 3> elems_to_nodes;
+
+        /**
+         * Number of nodes
+         */
+        [[nodiscard]] Eigen::Index N() const {
+            return this->nodes.rows();
+        }
+
+        /**
+         * Number of triangle elements.
+         */
+        [[nodiscard]] Eigen::Index T() const {
+            return this->elems_to_nodes.rows();
+        }
+
+        /**
+         * x-coordinates of nodes.
+         */
+        [[nodiscard]] Eigen::VectorXd x() const {
+            return this->nodes.col(0);
+        }
+
+        /**
+         * y-coordinates of nodes.
+         */
+        [[nodiscard]] Eigen::VectorXd y() const {
+            return this->nodes.col(0);
+        }
     };
 }
 
