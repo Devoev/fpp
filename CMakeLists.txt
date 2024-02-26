@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories("C:/Users/devin/eigen-3.4.0")
 
 add_executable(fpp main.cpp
-        fem/mesh/TriangularMesh2D.h)
+        fem/mesh/TriangularMesh2D.h
+)
