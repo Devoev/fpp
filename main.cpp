@@ -11,10 +11,8 @@ int main() {
 
     fem::mesh::TriangularMesh2D msh { nodes, elems_to_nodes };
 
-    std::cout << "x-coords: " << msh.x().transpose() << std::endl;
-    std::cout << "y-coords: " << msh.y().transpose() << std::endl;
-
-    auto msh2 = fem::mesh::TriangularMesh2D::parse("examples/unit_circle.msh");
+    auto msh2 = fem::mesh::TriangularMesh2D::parse("../examples/unit_circle.msh");
+    std::cout << msh2.N() << " nodes and " << msh2.T() << " triangles" << std::endl;
 
     return 0;
 }
