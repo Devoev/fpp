@@ -8,6 +8,6 @@ include_directories("C:/Users/devin/eigen-3.4.0")
 add_executable(fpp main.cpp
         fem/mesh/TriangularMesh2D.h
         fem/mesh/TriangularMesh2D.cpp
-        fem/matrix/mass_matrix.h
+        fem/matrix/nodal_mat.h
         fem/util/geo.h
 )

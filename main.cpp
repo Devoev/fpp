@@ -1,7 +1,7 @@
 #include <iostream>
 #include "fem/mesh/TriangularMesh2D.h"
 #include "fem/util/geo.h"
-#include "fem/matrix/mass_matrix.h"
+#include "fem/matrix/nodal_mat.h"
 
 
 fem::mesh::TriangularMesh2D example_mesh() {
@@ -25,22 +25,12 @@ fem::mesh::TriangularMesh2D example_mesh() {
 
 
 int main() {
-
-    Eigen::Matrix<double, Eigen::Dynamic, 2> nodes(4, 2);
-    nodes << 0, 0, 1, 0, 0, 1, 1, 1;
-
-    Eigen::Matrix<int, Eigen::Dynamic, 3> elems_to_nodes(2, 3);
-    elems_to_nodes << 0, 1, 2, 1, 2, 3;
-
-    fem::mesh::TriangularMesh2D msh { nodes, elems_to_nodes };
-
-    auto msh2 = example_mesh();
-    std::cout << msh2.N() << " nodes and " << msh2.T() << " triangles" << std::endl;
-
-    Eigen::Matrix<double, 3, 2> coords(3,2);
-    coords << 0, 0, 1, 0, 0, 1;
-    std::cout << fem::geo::area_triangle_2d(coords) << std::endl;
-    std::cout << fem::mat::mass::node_local(coords) << std::endl;
+    auto msh = example_mesh();
+    std::cout << msh.N() << " nodes and " << msh.T() << " triangles" << std::endl;
+    auto M = fem::mat::nodal::mass(msh);
+    auto K = fem::mat::nodal::stiffness(msh);
+    std::cout << "Mass matrix M =  " << std::endl << M << std::endl;
+    std::cout << "Stiffness matrix K =  " << std::endl << K << std::endl;
 
     return 0;
 }
