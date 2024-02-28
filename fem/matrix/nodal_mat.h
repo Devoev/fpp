@@ -22,10 +22,10 @@ namespace fem::mat::nodal {
      */
     Eigen::MatrixXd mass(const fem::mesh::TriangularMesh2D& msh) {
         Eigen::Index n = msh.N();
-        Eigen::Index m = 9 * msh.T();
         Eigen::SparseMatrix<double> M(n,n);
 
         // Iteration over triangles
+        #pragma omp parallel for
         for (int t = 0; t < msh.T(); ++t) {
             auto nodes = msh.elems_to_nodes.row(t);
             auto coords = msh.nodes(nodes, Eigen::all);
@@ -36,7 +36,8 @@ namespace fem::mat::nodal {
                 Eigen::Index ni = nodes[i];
                 for (int j = 0; j < 3; ++j) {
                     Eigen::Index nj = nodes[j];
-                    M.coeffRef(ni, nj) += M_t(i,j);
+                    #pragma omp critical
+                    { M.coeffRef(ni, nj) += M_t(i,j); };
                 }
             }
         }
