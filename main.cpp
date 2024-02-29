@@ -25,7 +25,8 @@ fem::mesh::TriangularMesh2D example_mesh() {
 
 
 int main() {
-    auto msh = example_mesh();
+//    auto msh = example_mesh();
+    auto msh = fem::mesh::TriangularMesh2D::parse("../examples/unit_circle.msh");
     std::cout << msh.N() << " nodes and " << msh.T() << " triangles" << std::endl;
     auto M = fem::mat::nodal::mass(msh);
     auto K = fem::mat::nodal::stiffness(msh);
