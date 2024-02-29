@@ -101,7 +101,7 @@ TriangularMesh2D TriangularMesh2D::parse(const std::string &msh_path) {
 
     for (size_t i = triangles_idx + 1; i < triangles_end_idx; ++i) {
         std::vector<int> nums = stois(lines[i]);
-        elems_unordered.push_back({ nums[1], nums[2], nums[3] });
+        elems_unordered.push_back({ nums[1]-1, nums[2]-1, nums[3]-1 });
     }
 
     // TODO: Adjust order of elems_unordered!
