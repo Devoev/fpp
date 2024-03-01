@@ -1,5 +1,6 @@
 #include <Eigen/Sparse>
 #include <Eigen/Dense>
+#include "nodal_basis.h"
 
 namespace fem::mat::nodal {
 
@@ -41,7 +42,7 @@ namespace fem::mat::nodal {
      * @param nodes Node coordinates.
      */
     Eigen::Matrix3d mass_local(const Eigen::Matrix<double, 3, 2>& nodes) {
-        double val = geo::area_triangle_2d(nodes) / 12;
+        double val = geo::area_tri_2d(nodes) / 12;
         return Eigen::Matrix3d {
                 { 2*val, val, val },
                 { val, 2*val, val },
@@ -62,8 +63,10 @@ namespace fem::mat::nodal {
      * @param nodes Node coordinates.
      */
     Eigen::Matrix3d stiffness_local(const Eigen::Matrix<double, 3, 2>& nodes) {
-        // TODO: not yet implemented
-        return Eigen::Matrix3d {};
+        double S = fem::geo::area_tri_2d(nodes);
+        Eigen::Matrix2d G_inv = fem::geo::gram_inv_tri_2d(nodes);
+        auto grad = fem::basis::nodal::grad_ref(nodes);
+        return S * grad.transpose() * G_inv * grad;
     }
 
     /**
