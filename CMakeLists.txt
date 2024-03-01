@@ -10,4 +10,5 @@ add_executable(fpp main.cpp
         fem/mesh/TriangularMesh2D.cpp
         fem/matrix/nodal_mat.h
         fem/util/geo.h
+        fem/matrix/nodal_basis.h
 )
