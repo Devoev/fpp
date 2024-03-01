@@ -25,14 +25,23 @@ fem::mesh::TriangularMesh2D example_mesh() {
 
 
 int main() {
-//    auto msh = example_mesh();
+    // Parse mesh
     auto msh = fem::mesh::TriangularMesh2D::parse("../examples/unit_circle.msh");
     std::cout << msh.N() << " nodes and " << msh.T() << " triangles" << std::endl;
 
+    // Assemble matrices
     auto M = fem::mat::nodal::mass(msh);
     auto K = fem::mat::nodal::stiffness(msh);
-    std::cout << "Mass matrix M =  " << std::endl << M << std::endl;
-    std::cout << "Stiffness matrix K =  " << std::endl << K << std::endl;
+    std::cout << "Norm of mass matrix ||M|| =  " << M.norm() << std::endl;
+    std::cout << "Norm of stiffness matrix ||K|| =  " << K.norm() << std::endl;
+
+    // RHS
+    Eigen::VectorXd b = Eigen::VectorXd::Constant(msh.N(), 1.);
+
+    // Solve system
+    auto solver = (K + M).colPivHouseholderQr();
+    Eigen::VectorXd u = solver.solve(b);
+    std::cout << u << std::endl;
 
     return 0;
 }
