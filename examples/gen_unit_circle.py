@@ -6,7 +6,7 @@ cad = gmsh.model.occ
 msh = gmsh.model.mesh
 
 
-@gmsh_model("unit_circle", dim=2, finalize=False, options={"Mesh.MeshSizeFactor": 2, "Mesh.MeshSizeMax": 3})
+@gmsh_model("unit_circle", dim=2, finalize=False, options={"Mesh.MeshSizeFactor": 0.3, "Mesh.MeshSizeMax": 0.3})
 def gen_unit_circle():
     """Creates a mesh of a unit circle."""
 
